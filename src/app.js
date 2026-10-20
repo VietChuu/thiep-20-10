@@ -430,23 +430,32 @@ $("sample-photos").textContent = config.photosAreExamples
 const film = $("film-strip");
 let filmPauseUntil = 0,
   filmHovered = false,
-  filmLast = 0;
+  filmLast = 0,
+  filmScroll = 0;
 film.addEventListener("pointerenter", () => {
   filmHovered = true;
 });
 film.addEventListener("pointerleave", () => {
   filmHovered = false;
+  filmScroll = film.scrollLeft;
 });
 film.addEventListener("pointerdown", () => {
-  filmPauseUntil = performance.now() + 6000;
+  filmPauseUntil = performance.now() + 2500;
+  filmScroll = film.scrollLeft;
 });
 film.addEventListener(
   "wheel",
   () => {
-    filmPauseUntil = performance.now() + 6000;
+    filmPauseUntil = performance.now() + 2500;
+    filmScroll = film.scrollLeft;
   },
   { passive: true },
 );
+film.addEventListener("scroll", () => {
+  if (filmHovered || performance.now() < filmPauseUntil) {
+    filmScroll = film.scrollLeft;
+  }
+});
 function moveFilm(time) {
   const delta = Math.min((time - filmLast) / 1000, 0.05);
   filmLast = time;
@@ -458,9 +467,12 @@ function moveFilm(time) {
     !film.contains(document.activeElement) &&
     !$("main-content").hidden
   ) {
-    film.scrollLeft += delta * 22;
     const half = $("film-track").scrollWidth / 2;
-    if (film.scrollLeft >= half) film.scrollLeft -= half;
+    if (half > 0) {
+      filmScroll += delta * 46;
+      if (filmScroll >= half) filmScroll -= half;
+      film.scrollLeft = filmScroll;
+    }
   }
   requestAnimationFrame(moveFilm);
 }

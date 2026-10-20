@@ -909,6 +909,7 @@ em {
   overflow-x: auto;
   scrollbar-width: none;
   position: relative;
+  scroll-behavior: auto;
 }
 .film-strip:before,
 .film-strip:after {

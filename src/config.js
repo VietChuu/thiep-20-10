@@ -2,8 +2,8 @@
 export const config = {
   recipient: "cậu",
   sender: "một người bạn",
-  friendshipStart: "2024-10-20T00:00:00+07:00",
-  friendshipDateIsExample: true,
+  friendshipStart: "2021-01-09T00:00:00+07:00",
+  friendshipDateIsExample: false,
   customMusicUrl: "",
   avatars: { recipient: "", sender: "" },
   trackingTopic: "thiep2010-vietchuu-c7b391a60f2e4d8b93ac",
