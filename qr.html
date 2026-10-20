@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="theme-color" content="#fffcf9" />
+    <title>Gói một chiếc thiệp · Tạo mã QR</title>
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="src/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script src="src/vendor/qrcode.js"></script>
+    <script type="module" src="src/qr.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./"
+        ><span class="brand-flower">✳</span>một chút dễ thương</a
+      >
+      <nav class="utility-nav">
+        <a href="./">Xem thiệp ↗</a><a href="dashboard.html">Dashboard ↗</a>
+      </nav>
+    </header>
+    <main class="utility-main content-width">
+      <div class="utility-heading">
+        <p class="eyebrow">MỘT NGƯỜI BẠN · MỘT CHIẾC THIỆP RIÊNG</p>
+        <h1>Gói một chút <em>dễ thương.</em></h1>
+        <p>
+          Điền tên, thêm lời nhắn. Một đường link và mã QR riêng sẽ sẵn sàng để
+          gửi đi.
+        </p>
+      </div>
+      <div class="qr-layout">
+        <section class="form-panel">
+          <form id="qr-form">
+            <label
+              >Địa chỉ trang thiệp<input
+                id="base-url"
+                type="url"
+                required
+                maxlength="500"
+                placeholder="https://tenban.github.io/thiep-20-10/"
+            /></label>
+            <div class="form-row">
+              <label
+                >Gửi đến<input
+                  id="to-name"
+                  maxlength="80"
+                  required
+                  placeholder="Tên người nhận" /></label
+              ><label
+                >Người gửi<input
+                  id="from-name"
+                  maxlength="80"
+                  required
+                  placeholder="Tên của bạn"
+              /></label>
+            </div>
+            <label
+              >Lời nhắn riêng (không bắt buộc)<textarea
+                id="custom-message"
+                maxlength="700"
+                placeholder="Chúc cậu deadline nhẹ tênh, lương tăng đều đều!"
+              ></textarea></label
+            ><button class="button primary" type="submit">
+              Tạo thiệp & mã QR <span>↗</span>
+            </button>
+          </form>
+          <p id="qr-status" class="status-message" role="status"></p>
+          <div id="generated-link" class="generated-link"></div>
+          <div class="qr-actions">
+            <button id="copy-link" class="button secondary" disabled>
+              Sao chép link</button
+            ><a
+              id="preview-link"
+              class="button secondary"
+              target="_blank"
+              rel="noopener"
+              >Xem thử thiệp ↗</a
+            ><button id="download-qr" class="button secondary" disabled>
+              Tải poster PNG ↓</button
+            ><button id="print-poster" class="button secondary" disabled>
+              In poster
+            </button>
+          </div>
+          <p class="tiny" style="margin-top: 20px">
+            QR được tạo ngay trên thiết bị. Tên và lời nhắn nằm trong đường
+            link; người có link sẽ đọc được nội dung.
+          </p>
+        </section>
+        <section>
+          <div class="poster-preview">
+            <canvas
+              id="poster-canvas"
+              width="1000"
+              height="1400"
+              aria-label="Poster mã QR thiệp 20 tháng 10"
+            ></canvas>
+          </div>
+          <p class="tiny">Ảnh PNG 1000 × 1400 px · phù hợp để gửi hoặc in</p>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

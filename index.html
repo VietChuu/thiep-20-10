@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#fffcf9" />
+    <meta
+      name="description"
+      content="Một chiếc thiệp 20/10, một chút dễ thương và rất nhiều bất ngờ dành cho cậu."
+    />
+    <title>Một chút dễ thương · Thiệp 20/10</title>
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="src/style.css" />
+    <script type="module" src="src/app.js"></script>
+  </head>
+  <body>
+    <canvas id="petals-canvas" aria-hidden="true"></canvas>
+    <div id="sparkles" aria-hidden="true"></div>
+    <div id="flash" aria-hidden="true"></div>
+    <header class="site-header">
+      <a class="brand" href="./"
+        ><span class="brand-flower">✳</span
+        ><span data-copy="brand">một chút dễ thương</span></a
+      >
+      <span class="header-note">a little joy, just for you</span>
+      <button
+        class="music-control"
+        id="music-toggle"
+        aria-label="Bật nhạc"
+        aria-pressed="false"
+      >
+        <span class="record">♪</span><span id="music-label">Bật nhạc</span>
+      </button>
+    </header>
+
+    <section
+      id="envelope-stage"
+      class="opening-stage"
+      aria-labelledby="opening-title"
+    >
+      <div class="opening-copy">
+        <p class="eyebrow" data-copy="occasion"></p>
+        <h1 id="opening-title">
+          Gửi <span data-recipient>cậu</span>,<br />một ngày<br />
+          <em>thật xinh.</em><span class="title-star">✧</span>
+        </h1>
+        <p class="intro" data-copy="intro"></p>
+        <button id="open-card" class="button primary">
+          <span data-copy="open"></span><span>↗</span>
+        </button>
+        <p class="tiny opening-hint">
+          <span>✦</span> <span data-copy="openingHint"></span>
+        </p>
+      </div>
+      <div class="envelope-scene">
+        <span class="floating-note note-top">đặc biệt dành cho cậu ♡</span>
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <span class="scene-flower flower-one">✿</span
+        ><span class="scene-flower flower-two">✳</span
+        ><span class="scene-spark">✧</span>
+        <button
+          id="envelope"
+          class="envelope"
+          aria-label="Mở phong bì chúc mừng 20/10"
+        >
+          <span class="letter-peek"
+            ><span>happy</span><strong>20/10</strong
+            ><span>you deserve lovely things.</span></span
+          >
+          <span class="envelope-back"></span><span class="envelope-flap"></span
+          ><span class="envelope-front"></span> <span class="wax-seal">✿</span
+          ><span class="envelope-caption"
+            >gửi <span data-recipient>cậu</span>, với thật nhiều quý mến</span
+          >
+        </button>
+        <span class="floating-note note-bottom">chạm để mở bất ngờ ↗</span>
+        <span class="postmark"
+          >SPECIAL DELIVERY<br /><strong>20 · 10</strong><br />WITH A LITTLE
+          LOVE</span
+        >
+      </div>
+      <div class="opening-bottom">
+        <span>MỘT CHIẾC THIỆP NHỎ, MỘT NGÀY THẬT VUI</span
+        ><span>✳ &nbsp; ĐƯỢC GÓI BẰNG SỰ CHÂN THÀNH</span>
+      </div>
+      <label class="sharing-note"
+        ><input id="sharing-intro" type="checkbox" /> Cho phép gửi tên và tương
+        tác trên thiệp cho người gửi qua ntfy. Tuỳ chọn, vẫn mở thiệp khi không
+        chọn.</label
+      >
+    </section>
+
+    <main id="main-content" hidden>
+      <section class="welcome content-width">
+        <p class="eyebrow" data-copy="occasion"></p>
+        <h1>
+          Một ngày dành cho <em data-recipient>cậu</em>
+          <span class="small-flower">✿</span>
+        </h1>
+        <p>Không deadline. Không áp lực. Chỉ có một chút niềm vui.</p>
+        <nav class="section-nav" aria-label="Các phần trong thiệp">
+          <a href="#letter-section">Lời chúc</a><a href="#memories">Kỷ niệm</a
+          ><a href="#little-surprises">Bất ngờ</a
+          ><a href="#lucky">Quà của cậu ↗</a>
+        </nav>
+      </section>
+
+      <section id="letter-section" class="letter-section content-width">
+        <article
+          class="letter-paper"
+          id="letter-paper"
+          tabindex="0"
+          role="button"
+          aria-label="Hiện toàn bộ lời chúc"
+        >
+          <span class="paper-tape"></span>
+          <p class="eyebrow" data-copy="letterLabel"></p>
+          <h2 data-copy="letterTitle"></h2>
+          <p class="letter-greeting">Này <span data-recipient></span> ơi,</p>
+          <div id="letter-text" class="letter-text"></div>
+          <div class="letter-signature">
+            Thân gửi,<br /><span data-sender></span>
+            <span class="signature-heart">♡</span>
+          </div>
+          <p class="tiny" id="typewriter-hint" data-copy="letterHint"></p>
+        </article>
+        <aside class="friendship-side">
+          <div class="friendship-card">
+            <span class="eyebrow">YOU & ME</span>
+            <div class="avatars">
+              <span id="avatar-from" class="avatar">☺</span
+              ><span class="friend-connector">✧</span
+              ><span id="avatar-to" class="avatar peach">☺</span>
+            </div>
+            <h3 data-copy="friendshipTitle"></h3>
+            <div id="friendship-counter" class="counter"></div>
+            <p class="tiny" data-copy="friendshipNote"></p>
+            <p id="date-example" class="tiny muted"></p>
+          </div>
+          <div class="mini-quote">
+            <span>✳</span>
+            <p>Thế giới có nhiều người.<br />Thật vui vì có <em>cậu.</em></p>
+          </div>
+          <button
+            id="celebrate"
+            class="button secondary"
+            data-copy="celebrate"
+          ></button>
+        </aside>
+      </section>
+
+      <section id="memories" class="memories-section section-space">
+        <div class="content-width section-heading">
+          <div>
+            <p class="eyebrow" data-copy="memoriesLabel"></p>
+            <h2 data-copy="memoriesTitle"></h2>
+          </div>
+          <p data-copy="memoriesIntro"></p>
+        </div>
+        <div class="camera-layout content-width">
+          <div class="camera-copy">
+            <span class="handwritten">say cheese! ✧</span>
+            <h3 data-copy="cameraTitle"></h3>
+            <p data-copy="cameraHint"></p>
+            <button id="take-photo" class="button primary">
+              <span>◎</span><span data-copy="cameraButton"></span>
+            </button>
+            <p id="photo-hint" class="tiny"></p>
+          </div>
+          <div class="camera-station">
+            <div class="instant-photo" id="instant-photo" hidden>
+              <button id="instant-preview" aria-label="Phóng to ảnh vừa chụp">
+                <img id="instant-image" alt="" /><span
+                  id="instant-number"
+                ></span>
+              </button>
+            </div>
+            <div class="camera">
+              <div class="camera-top">
+                <span class="camera-logo">little moments</span
+                ><span class="camera-flash"></span>
+              </div>
+              <div class="camera-middle">
+                <span class="camera-viewfinder"></span
+                ><button
+                  class="camera-lens"
+                  id="lens-button"
+                  aria-label="Chụp ảnh"
+                >
+                  <img id="lens-image" alt="Ảnh tiếp theo" /></button
+                ><span id="film-count" class="film-count">06</span>
+              </div>
+              <div class="camera-rainbow"></div>
+              <div class="camera-slot"></div>
+              <span class="camera-brand">INSTANT JOY / 20.10</span>
+            </div>
+          </div>
+        </div>
+        <p id="sample-photos" class="sample-note content-width"></p>
+        <div
+          id="film-strip"
+          class="film-strip"
+          tabindex="0"
+          aria-label="Cuộn phim kỷ niệm, chạm để tạm dừng"
+        >
+          <div id="film-track" class="film-track"></div>
+        </div>
+        <div class="content-width">
+          <div class="gallery-label">
+            <span>MỘT VÀI KHOẢNH KHẮC ĐÁNG GIỮ</span
+            ><span>CHẠM ĐỂ XEM GẦN HƠN ↗</span>
+          </div>
+          <div id="masonry" class="masonry"></div>
+        </div>
+      </section>
+
+      <section
+        id="little-surprises"
+        class="surprises content-width section-space"
+      >
+        <article class="game-card">
+          <p class="eyebrow" data-copy="gameLabel"></p>
+          <span id="game-face" class="game-face">🤭</span>
+          <h2 id="game-question"></h2>
+          <div id="game-arena" class="game-arena">
+            <button id="yes-button" class="button primary"></button
+            ><button id="no-button" class="button secondary"></button>
+          </div>
+          <p id="game-result" class="tiny" aria-live="polite">
+            Câu trả lời của cậu hoàn toàn tự nguyện nha.
+          </p>
+        </article>
+        <article class="scratch-card">
+          <p class="eyebrow" data-copy="scratchLabel"></p>
+          <h2 data-copy="scratchTitle"></h2>
+          <p class="tiny" data-copy="scratchHint"></p>
+          <div class="scratch-surface" id="scratch-surface">
+            <div class="scratch-prize">
+              <img id="scratch-image" alt="Bất ngờ sau lớp nhũ" />
+              <p id="scratch-message"></p>
+            </div>
+            <canvas id="scratch-canvas" aria-label="Lớp nhũ để cào"></canvas>
+          </div>
+          <div class="scratch-actions">
+            <button id="scratch-reveal" class="text-button">
+              Mở luôn bằng nút bấm</button
+            ><button
+              id="scratch-reset"
+              class="text-button"
+              data-copy="scratchReset"
+            ></button>
+          </div>
+          <p id="scratch-status" class="tiny" aria-live="polite">
+            Bí mật đang chờ cậu…
+          </p>
+        </article>
+      </section>
+
+      <section class="jar-section content-width section-space">
+        <div class="jar-illustration">
+          <span class="jar-orbit">✦</span
+          ><button
+            id="wish-jar"
+            class="wish-jar"
+            aria-label="Bốc một lời chúc từ lọ sao"
+          >
+            <span class="jar-lid"></span
+            ><span class="jar-glass"
+              ><span class="jar-star s1">★</span
+              ><span class="jar-star s2">★</span
+              ><span class="jar-star s3">★</span
+              ><span class="jar-star s4">★</span
+              ><span class="jar-star s5">★</span
+              ><span class="jar-star s6">★</span
+              ><span class="jar-label"
+                >a jar of<br /><em>good things</em
+                ><small>JUST FOR YOU</small></span
+              ></span
+            ></button
+          ><span class="handwritten">bốc một chút may mắn</span>
+        </div>
+        <div class="jar-copy">
+          <p class="eyebrow" data-copy="jarLabel"></p>
+          <h2 data-copy="jarTitle"></h2>
+          <p data-copy="jarHint"></p>
+          <div id="wish-note" class="wish-note" aria-live="polite">
+            <span class="tiny" id="wish-number">CHƯA MỞ NGÔI SAO NÀO</span>
+            <p id="wish-text">
+              Mỗi ngôi sao là một điều tốt lành đang chờ cậu.
+            </p>
+          </div>
+          <button
+            id="pick-star"
+            class="button primary"
+            data-copy="jarButton"
+          ></button>
+        </div>
+      </section>
+
+      <section id="lucky" class="lucky-section section-space">
+        <div class="section-heading centered content-width">
+          <p class="eyebrow" data-copy="luckyLabel"></p>
+          <h2 data-copy="luckyTitle"></h2>
+          <p data-copy="luckyHint"></p>
+        </div>
+        <div class="lucky-layout content-width">
+          <div class="wheel-panel">
+            <div class="wheel-wrap">
+              <span class="wheel-pointer" aria-hidden="true"></span
+              ><canvas
+                id="wheel-canvas"
+                width="720"
+                height="720"
+                role="img"
+                aria-label="Vòng quay 6 phần quà"
+              ></canvas
+              ><button
+                id="spin-button"
+                class="spin-button"
+                data-copy="spin"
+              ></button>
+            </div>
+            <p id="spin-result" class="spin-result" aria-live="polite">
+              Một vòng quay. Một lý do để gặp nhau.
+            </p>
+            <ol
+              id="prize-list"
+              class="prize-list"
+              aria-label="Các phần quà"
+            ></ol>
+          </div>
+          <div class="printer-panel">
+            <div class="printer-heading">
+              <span>YOUR LITTLE TREAT</span><span class="printer-light"></span>
+            </div>
+            <div class="printer-slot"></div>
+            <div class="receipt-window">
+              <article id="receipt" class="receipt" hidden>
+                <div class="receipt-header">
+                  TIỆM NIỀM VUI<small>HOÁ ĐƠN KHAO BẠN · 20/10</small>
+                </div>
+                <p id="receipt-id"></p>
+                <div class="receipt-row">
+                  <span>Khách quý</span><strong data-recipient></strong>
+                </div>
+                <div class="receipt-row">
+                  <span>Người khao</span><strong data-sender></strong>
+                </div>
+                <div class="receipt-divider"></div>
+                <span class="tiny">MÓN QUÀ CỦA CẬU</span>
+                <p id="receipt-prize" class="receipt-prize"></p>
+                <div class="receipt-divider"></div>
+                <div class="receipt-row">
+                  <span>Thành tiền</span><strong>0 ĐỒNG</strong>
+                </div>
+                <p class="receipt-note">
+                  Thanh toán bằng một nụ cười.<br />Chụp màn hình rồi gửi người
+                  khao nha!
+                </p>
+                <div class="barcode" aria-hidden="true"></div>
+                <p class="receipt-note">THANK YOU FOR BEING YOU</p>
+                <div id="receipt-stamp" class="receipt-stamp" hidden>
+                  CHỐT ĐƠN<small>ĐÃ HỨA LÀ KHAO</small>
+                </div>
+              </article>
+              <div id="receipt-empty" class="receipt-empty">
+                <span>🧾</span>
+                <p>
+                  Quay xong rồi in nhé.<br />Quà gì, hoá đơn ghi đúng món đó!
+                </p>
+              </div>
+            </div>
+            <div class="printer-actions">
+              <button
+                id="print-receipt"
+                class="button primary"
+                disabled
+                data-copy="print"
+              ></button
+              ><button
+                id="stamp-receipt"
+                class="button secondary"
+                disabled
+                data-copy="stamp"
+              ></button>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="closing content-width">
+        <span class="closing-flower">✳</span>
+        <h2 data-copy="closingTitle"></h2>
+        <p data-copy="closing"></p>
+        <button id="replay" class="text-button" data-copy="replay"></button>
+      </section>
+      <footer class="site-footer content-width">
+        <p data-copy="footer"></p>
+        <label class="sharing-note"
+          ><input id="sharing-footer" type="checkbox" /> Chia sẻ tên và tương
+          tác với người gửi qua ntfy</label
+        ><span>20.10 / MADE WITH CARE</span>
+      </footer>
+    </main>
+    <dialog id="lightbox" class="lightbox">
+      <button id="close-lightbox" class="lightbox-close" aria-label="Đóng ảnh">
+        ✕</button
+      ><button
+        id="prev-image"
+        class="lightbox-arrow previous"
+        aria-label="Ảnh trước"
+      >
+        ←
+      </button>
+      <figure>
+        <img id="lightbox-image" alt="" />
+        <figcaption id="lightbox-caption"></figcaption>
+      </figure>
+      <button id="next-image" class="lightbox-arrow next" aria-label="Ảnh sau">
+        →
+      </button>
+    </dialog>
+    <div id="toast" class="toast" role="status"></div>
+    <noscript
+      ><p class="noscript">
+        Hãy bật JavaScript để mở thiệp và chơi các trò nhỏ nhé. Chúc cậu một
+        ngày 20/10 thật vui!
+      </p></noscript
+    >
+  </body>
+</html>

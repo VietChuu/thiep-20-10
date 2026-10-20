@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Dashboard · Một chút dễ thương</title>
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="src/style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" src="src/dashboard.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="./"
+        ><span class="brand-flower">✳</span>một chút dễ thương</a
+      >
+      <nav class="utility-nav">
+        <a href="qr.html">Tạo mã QR ↗</a><a href="./">Xem thiệp ↗</a>
+      </nav>
+    </header>
+    <main class="utility-main content-width">
+      <div class="utility-heading">
+        <p class="eyebrow">GÓC CỦA NGƯỜI GỬI</p>
+        <h1>Niềm vui đã <em>được nhận.</em></h1>
+        <p>
+          Theo dõi những lần mở thiệp, những lời chúc được bốc và những món quà
+          cần khao.
+        </p>
+      </div>
+      <p class="notice">
+        Trang này không có đăng nhập. Kênh ntfy là công khai với ai biết tên
+        kênh; chỉ dùng cho các tương tác vui, không nhập dữ liệu nhạy cảm. Chỉ
+        nhận tương tác từ xa khi người xem đồng ý chia sẻ. Bộ nhớ đệm ntfy có
+        thời hạn; dữ liệu đã tải còn được lưu trên trình duyệt này.
+      </p>
+      <div class="dashboard-toolbar">
+        <span id="connection" class="connection" role="status"
+          >Đang kết nối…</span
+        >
+        <div class="qr-actions">
+          <button id="refresh-log" class="button secondary">
+            ↻ Tải lại lịch sử</button
+          ><button id="export-log" class="button secondary">Xuất JSON ↓</button
+          ><button id="reset-log" class="button reset-button">
+            🗑️ Xoá lịch sử Test
+          </button>
+        </div>
+      </div>
+      <p id="dashboard-status" class="status-message" role="status"></p>
+      <div class="stats-grid">
+        <div class="stat">
+          <strong id="stat-opens">0</strong><span>Lượt mở phong bì</span>
+        </div>
+        <div class="stat">
+          <strong id="stat-recipients">0</strong
+          ><span>Tên người nhận đã mở</span>
+        </div>
+        <div class="stat">
+          <strong id="stat-spins">0</strong><span>Phần quà đã quay</span>
+        </div>
+        <div class="stat">
+          <strong id="stat-stars">0</strong><span>Ngôi sao đã bốc</span>
+        </div>
+      </div>
+      <div class="dashboard-tables">
+        <section class="table-panel">
+          <h2>🧋 Sổ khao bạn bè</h2>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Người nhận</th>
+                  <th>Phần quà</th>
+                  <th>Lần quay / Giờ</th>
+                </tr>
+              </thead>
+              <tbody id="spin-rows"></tbody>
+            </table>
+          </div>
+        </section>
+        <section class="table-panel">
+          <h2>✦ Những ngôi sao đã mở</h2>
+          <div class="table-scroll">
+            <table>
+              <thead>
+                <tr>
+                  <th>Người nhận</th>
+                  <th>Ngôi sao</th>
+                  <th>Lời chúc</th>
+                </tr>
+              </thead>
+              <tbody id="star-rows"></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+      <section class="table-panel">
+        <h2>Nhật ký từng khoảnh khắc</h2>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th>Thời gian</th>
+                <th>Người nhận</th>
+                <th>Thao tác</th>
+                <th>Chi tiết</th>
+                <th>Thiết bị</th>
+              </tr>
+            </thead>
+            <tbody id="event-rows"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+    <dialog id="reset-dialog" class="form-panel">
+      <h2>Xoá dữ liệu thử nghiệm?</h2>
+      <p class="tiny">
+        Thao tác này gửi mốc reset cho dashboard, ẩn các sự kiện cũ. Không xoá
+        vật lý dữ liệu đã gửi trên ntfy.
+      </p>
+      <div class="qr-actions">
+        <button id="cancel-reset" class="button secondary">Giữ lại</button
+        ><button id="confirm-reset" class="button primary">
+          Xoá lịch sử Test
+        </button>
+      </div>
+    </dialog>
+  </body>
+</html>
