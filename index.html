@@ -108,7 +108,7 @@
         <nav class="section-nav" aria-label="Các phần trong thiệp">
           <a href="#letter-section">Lời chúc</a><a href="#memories">Kỷ niệm</a
           ><a href="#little-surprises">Bất ngờ</a
-          ><a href="#lucky">Quà của cậu ↗</a>
+          ><a href="#jar-section">Lọ điều ước ↗</a>
         </nav>
       </section>
 
@@ -263,7 +263,7 @@
         </article>
       </section>
 
-      <section class="jar-section content-width section-space">
+      <section id="jar-section" class="jar-section content-width section-space">
         <div class="jar-illustration">
           <span class="jar-orbit">✦</span
           ><button
@@ -301,97 +301,6 @@
             class="button primary"
             data-copy="jarButton"
           ></button>
-        </div>
-      </section>
-
-      <section id="lucky" class="lucky-section section-space">
-        <div class="section-heading centered content-width">
-          <p class="eyebrow" data-copy="luckyLabel"></p>
-          <h2 data-copy="luckyTitle"></h2>
-          <p data-copy="luckyHint"></p>
-        </div>
-        <div class="lucky-layout content-width">
-          <div class="wheel-panel">
-            <div class="wheel-wrap">
-              <span class="wheel-pointer" aria-hidden="true"></span
-              ><canvas
-                id="wheel-canvas"
-                width="720"
-                height="720"
-                role="img"
-                aria-label="Vòng quay 6 phần quà"
-              ></canvas
-              ><button
-                id="spin-button"
-                class="spin-button"
-                data-copy="spin"
-              ></button>
-            </div>
-            <p id="spin-result" class="spin-result" aria-live="polite">
-              Một vòng quay. Một lý do để gặp nhau.
-            </p>
-            <ol
-              id="prize-list"
-              class="prize-list"
-              aria-label="Các phần quà"
-            ></ol>
-          </div>
-          <div class="printer-panel">
-            <div class="printer-heading">
-              <span>YOUR LITTLE TREAT</span><span class="printer-light"></span>
-            </div>
-            <div class="printer-slot"></div>
-            <div class="receipt-window">
-              <article id="receipt" class="receipt" hidden>
-                <div class="receipt-header">
-                  TIỆM NIỀM VUI<small>HOÁ ĐƠN KHAO BẠN · 20/10</small>
-                </div>
-                <p id="receipt-id"></p>
-                <div class="receipt-row">
-                  <span>Khách quý</span><strong data-recipient></strong>
-                </div>
-                <div class="receipt-row">
-                  <span>Người khao</span><strong data-sender></strong>
-                </div>
-                <div class="receipt-divider"></div>
-                <span class="tiny">MÓN QUÀ CỦA CẬU</span>
-                <p id="receipt-prize" class="receipt-prize"></p>
-                <div class="receipt-divider"></div>
-                <div class="receipt-row">
-                  <span>Thành tiền</span><strong>0 ĐỒNG</strong>
-                </div>
-                <p class="receipt-note">
-                  Thanh toán bằng một nụ cười.<br />Chụp màn hình rồi gửi người
-                  khao nha!
-                </p>
-                <div class="barcode" aria-hidden="true"></div>
-                <p class="receipt-note">THANK YOU FOR BEING YOU</p>
-                <div id="receipt-stamp" class="receipt-stamp" hidden>
-                  CHỐT ĐƠN<small>ĐÃ HỨA LÀ KHAO</small>
-                </div>
-              </article>
-              <div id="receipt-empty" class="receipt-empty">
-                <span>🧾</span>
-                <p>
-                  Quay xong rồi in nhé.<br />Quà gì, hoá đơn ghi đúng món đó!
-                </p>
-              </div>
-            </div>
-            <div class="printer-actions">
-              <button
-                id="print-receipt"
-                class="button primary"
-                disabled
-                data-copy="print"
-              ></button
-              ><button
-                id="stamp-receipt"
-                class="button secondary"
-                disabled
-                data-copy="stamp"
-              ></button>
-            </div>
-          </div>
         </div>
       </section>
       <section class="closing content-width">

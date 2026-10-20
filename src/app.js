@@ -1,5 +1,5 @@
 import { config } from "./config.js";
-import { personalize, elapsedSince, spinTarget, safeAsset } from "./core.js";
+import { personalize, elapsedSince, safeAsset } from "./core.js";
 import {
   track,
   readStored,
@@ -20,11 +20,8 @@ const saved = readStored(personKey, {});
 let wishIndex = Number.isInteger(saved?.wishIndex)
   ? Math.max(0, Math.min(saved.wishIndex, config.wishes.length))
   : 0;
-let spinCount = Number.isInteger(saved?.spinCount)
-  ? Math.max(0, saved.spinCount)
-  : 0;
 function saveProgress() {
-  store(personKey, { wishIndex, spinCount });
+  store(personKey, { wishIndex });
 }
 document.title = `Gửi ${person.to} · Một chút dễ thương 20/10`;
 document.querySelectorAll("[data-copy]").forEach((element) => {
@@ -783,156 +780,3 @@ function pickWish() {
 $("pick-star").addEventListener("click", pickWish);
 $("wish-jar").addEventListener("click", pickWish);
 
-const wheel = $("wheel-canvas"),
-  wheelContext = wheel.getContext("2d");
-function drawWheel() {
-  const center = wheel.width / 2,
-    radius = center - 5,
-    slice = (Math.PI * 2) / config.prizes.length;
-  wheelContext.clearRect(0, 0, wheel.width, wheel.height);
-  config.prizes.forEach((prize, index) => {
-    const start = index * slice - Math.PI / 2,
-      end = start + slice;
-    wheelContext.beginPath();
-    wheelContext.moveTo(center, center);
-    wheelContext.arc(center, center, radius, start, end);
-    wheelContext.closePath();
-    wheelContext.fillStyle = prize.color;
-    wheelContext.fill();
-    wheelContext.strokeStyle = "#fff7e8";
-    wheelContext.lineWidth = 3;
-    wheelContext.stroke();
-    wheelContext.save();
-    wheelContext.translate(center, center);
-    wheelContext.rotate(start + slice / 2);
-    wheelContext.textAlign = "center";
-    wheelContext.fillStyle = "#593a33";
-    wheelContext.font = "42px sans-serif";
-    wheelContext.fillText(prize.emoji, radius * 0.67, 0);
-    wheelContext.font = "500 20px 'Be Vietnam Pro', sans-serif";
-    wheelContext.fillText(prize.short, radius * 0.67, 34);
-    wheelContext.restore();
-  });
-}
-drawWheel();
-document.fonts.ready.then(drawWheel);
-config.prizes.forEach((prize) => {
-  const item = document.createElement("li");
-  item.textContent = `${prize.emoji} ${prize.label}`;
-  $("prize-list").append(item);
-});
-let wheelRotation = 0,
-  spinning = false,
-  currentPrize = null,
-  printed = false,
-  printing = false,
-  stamped = false,
-  currentSpinId = "";
-function randomIndex(count) {
-  const range = 2 ** 32,
-    limit = Math.floor(range / count) * count,
-    value = new Uint32Array(1);
-  do {
-    crypto.getRandomValues(value);
-  } while (value[0] >= limit);
-  return value[0] % count;
-}
-async function spinWheel() {
-  if (spinning || printing) return;
-  spinning = true;
-  $("spin-button").disabled = true;
-  $("print-receipt").disabled = true;
-  $("stamp-receipt").disabled = true;
-  $("receipt").hidden = true;
-  $("receipt-empty").hidden = false;
-  $("receipt-stamp").hidden = true;
-  printed = false;
-  stamped = false;
-  currentPrize = null;
-  $("spin-result").textContent = "Đang chọn một lý do để khao cậu…";
-  await sound.ready().catch(() => false);
-  const index = randomIndex(config.prizes.length),
-    start = wheelRotation,
-    target = spinTarget(start, index, config.prizes.length, 5 + randomIndex(3));
-  const duration = reducedMotion ? 50 : 5300,
-    startTime = performance.now();
-  let previousSegment = -1;
-  function animate(time) {
-    const progress = Math.min(1, (time - startTime) / duration),
-      eased = 1 - (1 - progress) ** 4;
-    wheelRotation = start + (target - start) * eased;
-    wheel.style.transform = `rotate(${wheelRotation}deg)`;
-    const segment = Math.floor(wheelRotation / (360 / config.prizes.length));
-    if (segment !== previousSegment) {
-      previousSegment = segment;
-      sound.tone(900, 0.035, 0.025, "triangle");
-    }
-    if (progress < 1) requestAnimationFrame(animate);
-    else {
-      spinning = false;
-      $("spin-button").disabled = false;
-      currentPrize = config.prizes[index];
-      spinCount++;
-      saveProgress();
-      currentSpinId = crypto.randomUUID().slice(0, 8).toUpperCase();
-      $("spin-result").textContent =
-        `${currentPrize.emoji} Chốt: ${currentPrize.label}!`;
-      $("print-receipt").disabled = false;
-      emit("spin_wheel", {
-        spinNumber: spinCount,
-        prize: currentPrize.label,
-        prizeIndex: index,
-        spinId: currentSpinId,
-      });
-      celebrate();
-    }
-  }
-  requestAnimationFrame(animate);
-}
-$("spin-button").addEventListener("click", spinWheel);
-$("print-receipt").addEventListener("click", async () => {
-  if (!currentPrize || spinning || printing || printed) return;
-  printing = true;
-  printed = true;
-  $("print-receipt").disabled = true;
-  $("spin-button").disabled = true;
-  $("receipt-prize").textContent =
-    `${currentPrize.emoji} ${currentPrize.label}`;
-  $("receipt-id").textContent =
-    `BILL #${currentSpinId} · ${new Date().toLocaleDateString("vi-VN")}`;
-  $("receipt-stamp").hidden = true;
-  $("receipt-empty").hidden = true;
-  $("receipt").hidden = false;
-  $("receipt").classList.remove("printing");
-  void $("receipt").offsetWidth;
-  $("receipt").classList.add("printing");
-  await sound.ready().catch(() => false);
-  sound.printer();
-  emit("print_receipt", {
-    spinNumber: spinCount,
-    prize: currentPrize.label,
-    spinId: currentSpinId,
-  });
-  setTimeout(
-    () => {
-      printing = false;
-      $("stamp-receipt").disabled = false;
-      $("spin-button").disabled = false;
-    },
-    reducedMotion ? 50 : 2450,
-  );
-});
-$("stamp-receipt").addEventListener("click", () => {
-  if (!printed || printing || stamped || !currentPrize) return;
-  stamped = true;
-  $("receipt-stamp").hidden = false;
-  $("stamp-receipt").disabled = true;
-  sound.noise(0.15, 0.2, 230);
-  sound.tone(100, 0.13, 0.1, "triangle");
-  emit("stamp_receipt", {
-    spinNumber: spinCount,
-    prize: currentPrize.label,
-    spinId: currentSpinId,
-  });
-  toast("Đã chốt đơn! Chụp màn hình gửi người khao thôi. 📸");
-});

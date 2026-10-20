@@ -15,19 +15,43 @@ export const config = {
     "Cảm ơn vì những cuộc tám chuyện không đầu không cuối, những lần có mặt đúng lúc, và vì đã là một người bạn rất đáng quý.",
     "Chúc cậu một ngày có hoa, có quà, có đồ ăn ngon. Còn nếu chưa có quà… kéo xuống, tui có chuẩn bị đây! ✨",
   ],
-  photosAreExamples: true,
+  photosAreExamples: false,
   photos: [
-    { src: "assets/cafe.svg", alt: "Minh hoạ hai ly cà phê bên cửa sổ" },
     {
-      src: "assets/flowers.svg",
-      alt: "Minh hoạ một bó hoa tươi trên nền hồng",
+      src: "assets/1792500403344_2199372916196262329_2672750711596410923_h.jpg",
+      alt: "Khoảnh khắc thật xinh 🌸",
     },
-    { src: "assets/sunset.svg", alt: "Minh hoạ hoàng hôn trên biển" },
-    { src: "assets/milktea.svg", alt: "Minh hoạ trà sữa full topping" },
-    { src: "assets/camera.svg", alt: "Minh hoạ máy ảnh và những chuyến đi" },
     {
-      src: "assets/cake.svg",
-      alt: "Minh hoạ một chiếc bánh dành cho ngày vui",
+      src: "assets/1792500403373_2199372916196262329_2672750711596410923_h.jpg",
+      alt: "Nụ cười rạng rỡ ✨",
+    },
+    {
+      src: "assets/1792500403408_2199372916196262329_2672750711596410923_h.jpg",
+      alt: "Một chút dịu dàng 🌷",
+    },
+    {
+      src: "assets/1792500403430_2199372916196262329_2672750711596410923_h.jpg",
+      alt: "Góc ảnh đáng yêu 📸",
+    },
+    {
+      src: "assets/1792500403454_2199372916196262329_2672750711596410923_h.jpg",
+      alt: "Xinh đẹp và tươi tắn 💫",
+    },
+    {
+      src: "assets/1792500403477_2199372916196262329_2672750711596410923_h.jpg",
+      alt: "Kỷ niệm đáng nhớ 🌿",
+    },
+    {
+      src: "assets/1792500403511_2199372916196262329_2672750711596410923_h.jpg",
+      alt: "Một ngày tràn ngập niềm vui 🌼",
+    },
+    {
+      src: "assets/1792500403537_2199372916196262329_2672750711596410923_h.jpg",
+      alt: "Luôn rực rỡ như hoa ☀️",
+    },
+    {
+      src: "assets/1792500403565_2199372916196262329_2672750711596410923_h.jpg",
+      alt: "Hạnh phúc trong từng khoảnh khắc ♡",
     },
   ],
   scratch: {
